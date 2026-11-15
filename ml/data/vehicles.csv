@@ -1,0 +1,111 @@
+vehicle_id,registration_number,vehicle_type,make,model,manufacturing_year,fuel_type,mileage,last_service_date,service_mileage,current_status
+VH-001,LEA-1001,Box Truck,Isuzu,NPR 71 Cargo,2019,Diesel,209393,2025-10-21,199881,Active
+VH-002,KHI-1002,Light Delivery,Hyundai,Shehzore H-100,2024,Diesel,41868,2025-08-05,19194,Active
+VH-003,ICT-1003,Box Truck,Volvo,FL Electric,2022,Electric,23331,2025-11-29,21855,Active
+VH-004,FSD-1004,Light Delivery,Master,Foton Forland,2023,Diesel,172815,2025-08-01,171446,Active
+VH-005,PMA-1005,Heavy Freight,Hino,500 Series Linehaul,2022,Diesel,72787,2025-07-25,57568,Active
+VH-006,MN-1006,Box Truck,Hino,300 Series Euro-IV,2025,Diesel,226240,2025-09-05,220509,Active
+VH-007,SKT-1007,Light Delivery,Suzuki,Ravi Urban Express,2020,Petrol,71443,2025-11-26,59914,Active
+VH-008,RWP-1008,Cargo Van,JAC,Motors Sunray,2019,Diesel,109104,2025-07-21,97334,Active
+VH-009,QA-1009,Box Truck,Hino,300 Series Euro-IV,2024,Diesel,135435,2025-11-21,117364,Active
+VH-010,HYD-1010,Box Truck,Isuzu,NPR 71 Cargo,2023,Diesel,91854,2025-07-17,70755,Active
+VH-011,LEA-1011,Box Truck,Volvo,FL Electric,2020,Electric,199699,2025-12-11,196920,Idle
+VH-012,KHI-1012,Light Delivery,Master,Foton Forland,2025,Diesel,90861,2025-10-24,87747,Active
+VH-013,ICT-1013,Cargo Van,JAC,Motors Sunray,2021,Diesel,133858,2025-09-20,112528,Active
+VH-014,FSD-1014,Box Truck,FAW,Tiger V Carrier,2021,Diesel,69921,2025-10-15,47461,Idle
+VH-015,PMA-1015,Box Truck,Isuzu,NPR 71 Cargo,2023,Diesel,181455,2025-08-08,175348,Idle
+VH-016,MN-1016,Light Delivery,Master,Foton Forland,2020,Diesel,136178,2025-10-14,123245,Idle
+VH-017,SKT-1017,Heavy Freight,Hino,500 Series Linehaul,2020,Diesel,194467,2025-12-08,183341,Active
+VH-018,RWP-1018,Box Truck,Hino,300 Series Euro-IV,2025,Diesel,97694,2025-10-15,84049,Active
+VH-019,QA-1019,Light Delivery,Master,Foton Forland,2023,Diesel,203196,2025-10-29,192385,Idle
+VH-020,HYD-1020,Heavy Freight,Isuzu,FVR 34 Heavy,2022,Diesel,183519,2025-11-16,167984,Active
+VH-021,LEA-1021,Light Delivery,Hyundai,Shehzore H-100,2020,Diesel,210294,2025-08-07,191400,Active
+VH-022,KHI-1022,Box Truck,Volvo,FL Electric,2022,Electric,167969,2025-09-21,154382,Active
+VH-023,ICT-1023,Light Delivery,Hyundai,Shehzore H-100,2023,Diesel,144372,2025-12-10,140894,Active
+VH-024,FSD-1024,Light Delivery,Hyundai,Shehzore H-100,2024,Diesel,56938,2025-09-05,34140,In Maintenance
+VH-025,PMA-1025,Box Truck,Isuzu,NPR 71 Cargo,2022,Diesel,115039,2025-08-25,95013,In Maintenance
+VH-026,MN-1026,Light Delivery,Suzuki,Ravi Urban Express,2023,Petrol,18009,2025-11-23,0,Idle
+VH-027,LEA-4823,Box Truck,Volvo,FL Electric,2025,Electric,142850,2025-08-29,124000,Active
+VH-028,RWP-1028,Box Truck,Isuzu,NPR 71 Cargo,2021,Diesel,128971,2025-08-28,123289,Active
+VH-029,QA-1029,Light Delivery,Suzuki,Ravi Urban Express,2023,Petrol,214743,2025-08-15,208389,Active
+VH-030,HYD-1030,Light Delivery,Suzuki,Ravi Urban Express,2025,Petrol,182496,2025-07-20,165361,Active
+VH-031,LEA-1031,Light Delivery,Hyundai,Shehzore H-100,2021,Diesel,214887,2025-08-06,209094,In Maintenance
+VH-032,KHI-1032,Box Truck,Hino,300 Series Euro-IV,2023,Diesel,99975,2025-12-18,83465,Active
+VH-033,ICT-1033,Box Truck,FAW,Tiger V Carrier,2025,Diesel,226491,2025-10-22,215915,Active
+VH-034,FSD-1034,Light Delivery,Master,Foton Forland,2023,Diesel,35645,2025-08-20,32339,Active
+VH-035,PMA-1035,Heavy Freight,Hino,500 Series Linehaul,2025,Diesel,47967,2025-07-07,43260,Active
+VH-036,MN-1036,Heavy Freight,Hino,500 Series Linehaul,2020,Diesel,84483,2025-07-20,66693,Active
+VH-037,SKT-1037,Light Delivery,Master,Foton Forland,2023,Diesel,212988,2025-11-01,189883,Idle
+VH-038,RWP-1038,Light Delivery,Suzuki,Ravi Urban Express,2022,Petrol,191078,2025-09-18,169283,Active
+VH-039,QA-1039,Heavy Freight,Hino,500 Series Linehaul,2022,Diesel,46720,2025-10-26,38097,Active
+VH-040,HYD-1040,Box Truck,FAW,Tiger V Carrier,2019,Diesel,169221,2025-10-25,150571,In Maintenance
+VH-041,LEA-1041,Light Delivery,Master,Foton Forland,2019,Diesel,33610,2025-07-14,9916,Active
+VH-042,KHI-1042,Light Delivery,Master,Foton Forland,2019,Diesel,23234,2025-12-04,11907,In Maintenance
+VH-043,ICT-1043,Light Delivery,Master,Foton Forland,2021,Diesel,190368,2025-10-29,173962,In Maintenance
+VH-044,FSD-1044,Light Delivery,Hyundai,Shehzore H-100,2024,Diesel,164695,2025-08-23,145314,Active
+VH-045,PMA-1045,Heavy Freight,Isuzu,FVR 34 Heavy,2025,Diesel,121708,2025-11-28,114969,Active
+VH-046,MN-1046,Cargo Van,JAC,Motors Sunray,2021,Diesel,126038,2025-08-25,112068,Idle
+VH-047,SKT-1047,Box Truck,Hino,300 Series Euro-IV,2024,Diesel,186299,2025-11-27,164625,Active
+VH-048,RWP-1048,Cargo Van,JAC,Motors Sunray,2024,Diesel,103946,2025-10-20,99866,Active
+VH-049,QA-1049,Light Delivery,Master,Foton Forland,2023,Diesel,132601,2025-09-05,127508,Active
+VH-050,HYD-1050,Light Delivery,Suzuki,Ravi Urban Express,2022,Petrol,80485,2025-08-31,77515,In Maintenance
+VH-051,LEA-1051,Box Truck,Isuzu,NPR 71 Cargo,2019,Diesel,185955,2025-12-19,167742,Active
+VH-052,KHI-1052,Light Delivery,Master,Foton Forland,2020,Diesel,121539,2025-08-21,105126,Active
+VH-053,ICT-1053,Cargo Van,JAC,Motors Sunray,2019,Diesel,58158,2025-12-22,45240,Active
+VH-054,FSD-1054,Light Delivery,Suzuki,Ravi Urban Express,2025,Petrol,220816,2025-10-10,205407,Active
+VH-055,PMA-1055,Heavy Freight,Hino,500 Series Linehaul,2024,Diesel,203326,2025-11-13,186879,Active
+VH-056,MN-1056,Light Delivery,Suzuki,Ravi Urban Express,2020,Petrol,30331,2025-08-06,10853,Active
+VH-057,SKT-1057,Box Truck,FAW,Tiger V Carrier,2019,Diesel,28144,2025-08-22,8502,In Maintenance
+VH-058,RWP-1058,Heavy Freight,Hino,500 Series Linehaul,2020,Diesel,29910,2025-12-02,12770,Active
+VH-059,QA-1059,Box Truck,Isuzu,NPR 71 Cargo,2023,Diesel,32815,2025-10-23,10190,Active
+VH-060,HYD-1060,Box Truck,Isuzu,NPR 71 Cargo,2023,Diesel,79543,2025-07-23,60073,Active
+VH-061,LEA-1061,Box Truck,Volvo,FL Electric,2019,Electric,124897,2025-07-26,102857,In Maintenance
+VH-062,KHI-1062,Heavy Freight,Hino,500 Series Linehaul,2021,Diesel,83358,2025-10-03,76165,Active
+VH-063,ICT-1063,Light Delivery,Suzuki,Ravi Urban Express,2022,Petrol,49308,2025-07-10,26799,Active
+VH-064,FSD-1064,Heavy Freight,Isuzu,FVR 34 Heavy,2021,Diesel,212096,2025-12-20,209219,Active
+VH-065,PMA-1065,Box Truck,Volvo,FL Electric,2023,Electric,41209,2025-08-07,38309,Active
+VH-066,MN-1066,Heavy Freight,Hino,500 Series Linehaul,2021,Diesel,49722,2025-12-05,37786,Active
+VH-067,SKT-1067,Box Truck,FAW,Tiger V Carrier,2021,Diesel,56352,2025-08-05,41494,Idle
+VH-068,RWP-1068,Light Delivery,Suzuki,Ravi Urban Express,2023,Petrol,226576,2025-08-09,204647,Active
+VH-069,QA-1069,Heavy Freight,Hino,500 Series Linehaul,2021,Diesel,188903,2025-11-18,185009,Active
+VH-070,HYD-1070,Box Truck,Isuzu,NPR 71 Cargo,2019,Diesel,209620,2025-11-13,190992,Active
+VH-071,LEA-1071,Light Delivery,Suzuki,Ravi Urban Express,2023,Petrol,70215,2025-10-31,58480,Idle
+VH-072,KHI-1072,Light Delivery,Suzuki,Ravi Urban Express,2023,Petrol,143065,2025-12-09,134337,Active
+VH-073,ICT-1073,Cargo Van,JAC,Motors Sunray,2025,Diesel,87530,2025-12-22,85586,Active
+VH-074,FSD-1074,Light Delivery,Hyundai,Shehzore H-100,2024,Diesel,83670,2025-08-31,77876,In Maintenance
+VH-075,PMA-1075,Cargo Van,JAC,Motors Sunray,2023,Diesel,17534,2025-12-03,13369,Idle
+VH-076,MN-1076,Light Delivery,Hyundai,Shehzore H-100,2023,Diesel,24444,2025-07-26,11846,In Maintenance
+VH-077,SKT-1077,Light Delivery,Hyundai,Shehzore H-100,2022,Diesel,48409,2025-10-05,46539,Active
+VH-078,RWP-1078,Box Truck,Hino,300 Series Euro-IV,2021,Diesel,70070,2025-10-20,47221,Idle
+VH-079,QA-1079,Box Truck,Isuzu,NPR 71 Cargo,2021,Diesel,219502,2025-09-09,200656,In Maintenance
+VH-080,HYD-1080,Light Delivery,Hyundai,Shehzore H-100,2020,Diesel,57598,2025-09-08,51297,Active
+VH-081,LEA-1081,Light Delivery,Hyundai,Shehzore H-100,2024,Diesel,102080,2025-10-20,88089,Active
+VH-082,KHI-1082,Light Delivery,Hyundai,Shehzore H-100,2025,Diesel,198835,2025-09-16,194793,Active
+VH-083,ICT-1083,Heavy Freight,Isuzu,FVR 34 Heavy,2020,Diesel,67316,2025-09-24,51733,Active
+VH-084,FSD-1084,Light Delivery,Master,Foton Forland,2020,Diesel,21203,2025-11-03,0,Active
+VH-085,PMA-1085,Box Truck,FAW,Tiger V Carrier,2021,Diesel,33198,2025-09-24,23552,Idle
+VH-086,MN-1086,Heavy Freight,Hino,500 Series Linehaul,2022,Diesel,193131,2025-09-29,175061,Active
+VH-087,SKT-1087,Box Truck,Isuzu,NPR 71 Cargo,2021,Diesel,61810,2025-10-16,42286,Active
+VH-088,RWP-1088,Box Truck,Isuzu,NPR 71 Cargo,2023,Diesel,128918,2025-10-03,117091,Active
+VH-089,QA-1089,Box Truck,Volvo,FL Electric,2023,Electric,45315,2025-07-28,32193,Active
+VH-090,HYD-1090,Light Delivery,Suzuki,Ravi Urban Express,2019,Petrol,200803,2025-12-22,186015,In Maintenance
+VH-091,LEA-1091,Heavy Freight,Hino,500 Series Linehaul,2024,Diesel,203594,2025-11-02,181119,Active
+VH-092,KHI-1092,Cargo Van,JAC,Motors Sunray,2019,Diesel,189125,2025-07-16,177806,Active
+VH-093,ICT-1093,Box Truck,Isuzu,NPR 71 Cargo,2024,Diesel,93727,2025-10-04,76610,Idle
+VH-094,FSD-1094,Cargo Van,JAC,Motors Sunray,2021,Diesel,120486,2025-10-08,97140,In Maintenance
+VH-095,PMA-1095,Light Delivery,Hyundai,Shehzore H-100,2020,Diesel,125217,2025-09-16,102929,Idle
+VH-096,MN-1096,Light Delivery,Hyundai,Shehzore H-100,2023,Diesel,164187,2025-09-10,153826,In Maintenance
+VH-097,SKT-1097,Box Truck,Hino,300 Series Euro-IV,2021,Diesel,90212,2025-09-03,82825,In Maintenance
+VH-098,RWP-1098,Box Truck,Volvo,FL Electric,2024,Electric,99475,2025-08-31,83739,Active
+VH-099,QA-1099,Light Delivery,Master,Foton Forland,2023,Diesel,139042,2025-07-07,132982,Active
+VH-100,HYD-1100,Light Delivery,Suzuki,Ravi Urban Express,2023,Petrol,189025,2025-07-17,167785,Active
+VH-101,LEA-1101,Box Truck,Isuzu,NPR 71 Cargo,2025,Diesel,211906,2025-10-04,203710,Active
+VH-102,KHI-1102,Light Delivery,Master,Foton Forland,2020,Diesel,21402,2025-10-21,19388,Active
+VH-103,ICT-1103,Box Truck,Volvo,FL Electric,2025,Electric,216454,2025-08-28,213568,Active
+VH-104,FSD-1104,Box Truck,Volvo,FL Electric,2020,Electric,203310,2025-09-15,179992,Active
+VH-105,PMA-1105,Cargo Van,JAC,Motors Sunray,2020,Diesel,53684,2025-12-21,31687,Active
+VH-106,MN-1106,Cargo Van,JAC,Motors Sunray,2020,Diesel,61107,2025-08-12,37804,Active
+VH-107,SKT-1107,Box Truck,Hino,300 Series Euro-IV,2023,Diesel,80325,2025-08-28,75849,Active
+VH-108,RWP-1108,Heavy Freight,Isuzu,FVR 34 Heavy,2024,Diesel,154233,2025-07-23,135419,Active
+VH-109,QA-1109,Heavy Freight,Isuzu,FVR 34 Heavy,2023,Diesel,228649,2025-09-04,211609,In Maintenance
+VH-110,HYD-1110,Heavy Freight,Isuzu,FVR 34 Heavy,2020,Diesel,209944,2025-08-29,193890,Active
