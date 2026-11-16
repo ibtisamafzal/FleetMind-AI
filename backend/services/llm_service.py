@@ -71,30 +71,33 @@ class LLMService:
             return None
 
     def process_chat(self, message: str, db: Session, vehicle_id: Optional[str] = None) -> Dict[str, Any]:
-        """Generate the existing deterministic result and optionally enrich its text with Ollama."""
+        """Use Llama for the final response and retain the verified fallback."""
         result = self._process_chat_deterministic(message, db, vehicle_id)
+        result["response_source"] = "sqlite_fallback"
         if not result.get("response") or not settings.OLLAMA_ENABLED:
             return result
 
         prompt = (
             "User question:\n"
             f"{message}\n\n"
-            "Verified FleetMind answer generated from database, ML, and policy retrieval:\n"
+            "Verified FleetMind context generated from SQLite database, ML models, and policy retrieval:\n"
             f"{result['response']}\n\n"
             "Policy sources already used:\n"
             f"{result.get('sources', [])}\n\n"
-            "Rewrite only the explanation for clarity. Do not change, add, or remove "
-            "vehicle IDs, risk scores, percentages, dates, recommendations, or policy facts. "
-            "Do not invent telemetry. Return concise Markdown and do not include a title."
+            "Generate the final answer to the user's question using only this verified context. "
+            "Preserve all vehicle IDs, risk scores, percentages, dates, recommendations, and policy facts. "
+            "Do not invent telemetry or claims. Return concise Markdown."
         )
         system_prompt = (
-            "You are FleetMind AI's local Llama 3.2 explanation assistant. "
-            "The verified answer is authoritative. Preserve all factual values exactly. "
-            "If the verified answer is already sufficient, summarize it without adding claims."
+            "You are FleetMind AI's local Llama 3.2 fleet assistant. "
+            "You are the primary response generator. Use the supplied verified context as your only source "
+            "of fleet facts and preserve its factual values exactly."
         )
-        llm_explanation = self.query_ollama_sync(prompt, system_prompt)
-        if llm_explanation:
-            result["response"] = f"{result['response']}\n\n**Llama 3.2 Explanation**\n{llm_explanation}"
+        llm_response = self.query_ollama_sync(prompt, system_prompt)
+        if llm_response:
+            result["response"] = llm_response
+            result["ai_explanation"] = llm_response
+            result["response_source"] = "llama3.2"
         return result
 
     def _process_chat_deterministic(self, message: str, db: Session, vehicle_id: Optional[str] = None) -> Dict[str, Any]:

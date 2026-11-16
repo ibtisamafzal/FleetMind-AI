@@ -14,6 +14,7 @@ class RAGSource(BaseModel):
 
 class AIChatResponse(BaseModel):
     response: str
+    response_source: str = "sqlite_fallback"
     ml_prediction: Optional[Dict[str, Any]] = None
     deterministic_stats: Optional[Dict[str, Any]] = None
     ai_explanation: Optional[str] = None
