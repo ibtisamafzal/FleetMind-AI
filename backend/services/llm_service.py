@@ -7,6 +7,7 @@ ML Prediction -> Deterministic Calculation -> GenAI Explanation
 
 import os
 import json
+import logging
 import re
 import httpx
 from typing import Dict, Any, List, Optional
@@ -17,6 +18,8 @@ from backend.services.rag_service import rag_service
 from backend.services.ml_service import ml_service
 from backend.services.recommendation_service import recommendation_engine
 from backend.models import Vehicle, Driver, Trip, FuelRecord, Maintenance
+
+logger = logging.getLogger(__name__)
 
 class LLMService:
     def __init__(self):
@@ -43,7 +46,58 @@ class LLMService:
             pass
         return None
 
+    def query_ollama_sync(self, prompt: str, system_prompt: str) -> Optional[str]:
+        """Call Ollama synchronously for the synchronous FastAPI chat route."""
+        if not settings.OLLAMA_ENABLED:
+            return None
+
+        try:
+            with httpx.Client(timeout=60.0) as client:
+                response = client.post(
+                    f"{self.base_url}/api/generate",
+                    json={
+                        "model": self.model,
+                        "prompt": prompt,
+                        "system": system_prompt,
+                        "stream": False,
+                        "options": {"temperature": 0.2, "num_predict": 150},
+                    },
+                )
+                response.raise_for_status()
+                text = response.json().get("response", "").strip()
+                return text or None
+        except (httpx.HTTPError, ValueError) as exc:
+            logger.warning("Ollama request failed; keeping deterministic response: %s", exc)
+            return None
+
     def process_chat(self, message: str, db: Session, vehicle_id: Optional[str] = None) -> Dict[str, Any]:
+        """Generate the existing deterministic result and optionally enrich its text with Ollama."""
+        result = self._process_chat_deterministic(message, db, vehicle_id)
+        if not result.get("response") or not settings.OLLAMA_ENABLED:
+            return result
+
+        prompt = (
+            "User question:\n"
+            f"{message}\n\n"
+            "Verified FleetMind answer generated from database, ML, and policy retrieval:\n"
+            f"{result['response']}\n\n"
+            "Policy sources already used:\n"
+            f"{result.get('sources', [])}\n\n"
+            "Rewrite only the explanation for clarity. Do not change, add, or remove "
+            "vehicle IDs, risk scores, percentages, dates, recommendations, or policy facts. "
+            "Do not invent telemetry. Return concise Markdown and do not include a title."
+        )
+        system_prompt = (
+            "You are FleetMind AI's local Llama 3.2 explanation assistant. "
+            "The verified answer is authoritative. Preserve all factual values exactly. "
+            "If the verified answer is already sufficient, summarize it without adding claims."
+        )
+        llm_explanation = self.query_ollama_sync(prompt, system_prompt)
+        if llm_explanation:
+            result["response"] = f"{result['response']}\n\n**Llama 3.2 Explanation**\n{llm_explanation}"
+        return result
+
+    def _process_chat_deterministic(self, message: str, db: Session, vehicle_id: Optional[str] = None) -> Dict[str, Any]:
         """
         Coordinates RAG retrieval, real database metrics lookup, ML risk prediction,
         and generates structured response with citations, recommendations, and action cards.

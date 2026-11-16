@@ -80,7 +80,7 @@ class FleetRAGEngine:
         )
 
     def _build_chroma_index(self):
-        if not settings.RAG_USE_CHROMA:
+        if not getattr(settings, "RAG_USE_CHROMA", True):
             logger.info("Chroma RAG backend disabled by RAG_USE_CHROMA")
             return
         if chromadb is None:

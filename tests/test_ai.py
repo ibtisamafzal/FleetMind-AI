@@ -4,6 +4,7 @@ Tests for AI Assistant and RAG retrieval
 
 from fastapi.testclient import TestClient
 from backend.main import app
+from backend.services.llm_service import llm_service
 
 client = TestClient(app)
 
@@ -26,3 +27,22 @@ def test_ai_chat_general_high_risk():
     assert response.status_code == 200
     data = response.json()
     assert len(data["response"]) > 0
+
+
+def test_ai_chat_keeps_deterministic_answer_when_ollama_is_available(monkeypatch):
+    monkeypatch.setattr(
+        llm_service,
+        "query_ollama_sync",
+        lambda prompt, system_prompt: "Review the verified maintenance indicators before dispatch.",
+    )
+
+    response = client.post("/api/ai/chat", json={
+        "message": "Why is vehicle VH-027 high risk?",
+        "vehicle_id": "VH-027",
+    })
+
+    assert response.status_code == 200
+    data = response.json()
+    assert "Overall Composite Risk Score" in data["response"]
+    assert "Llama 3.2 Explanation" in data["response"]
+    assert data["ml_prediction"]["vehicle_id"] == "VH-027"
