@@ -130,7 +130,7 @@ export default function RiskRadar() {
       </div>
 
       {/* KPI Metric Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px', marginBottom: '22px' }}>
+      <div className="responsive-kpi-5" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px', marginBottom: '22px' }}>
         <div className="saas-card mini-metric-card">
           <span className="mini-metric-title">Average Fleet Risk</span>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
@@ -405,10 +405,12 @@ export default function RiskRadar() {
             ) : vehicleDetail ? (
               <div>
                 {/* Score Header */}
-                <div style={{ 
-                  display: 'grid', 
-                  gridTemplateColumns: 'repeat(4, 1fr)', 
-                  gap: '12px', 
+                <div 
+                  className="responsive-modal-kpi-4"
+                  style={{ 
+                    display: 'grid', 
+                    gridTemplateColumns: 'repeat(4, 1fr)', 
+                    gap: '12px', 
                   background: 'var(--bg-card-subtle)', 
                   padding: '16px', 
                   borderRadius: '12px',

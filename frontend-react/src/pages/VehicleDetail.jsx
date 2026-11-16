@@ -92,8 +92,8 @@ export default function VehicleDetail() {
             </div>
           </div>
 
-          <div style={{ textAlign: 'center', marginTop: '20px' }}>
-            <img src={imgPath} alt={detail.model} style={{ maxHeight: '160px', objectFit: 'contain' }} />
+          <div className="vehicle-detail-img-stage">
+            <img src={imgPath} alt={detail.model} />
           </div>
         </div>
 
@@ -237,7 +237,7 @@ export default function VehicleDetail() {
         </table>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+      <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
         <div className="saas-card" style={{ padding: 0, overflowX: 'auto' }}>
           <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border-light)', fontWeight: 700 }}>
             Recent Fuel / Energy Logs

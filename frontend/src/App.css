@@ -413,6 +413,163 @@
   transition: all var(--transition-fast);
 }
 
+@media (max-width: 768px) {
+  .top-header {
+    flex-wrap: wrap;
+    min-width: 0;
+    padding: 6px 4px;
+    margin-bottom: 16px;
+  }
+
+  .brand-section {
+    gap: 8px;
+  }
+
+  .brand-name {
+    font-size: 18px;
+  }
+
+  .floating-nav-pill {
+    order: 3;
+    flex: 1 0 100%;
+    width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    justify-content: flex-start;
+    padding: 4px 6px;
+    margin-top: 10px;
+    gap: 4px;
+  }
+
+  .floating-nav-pill::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-pill-btn {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+  }
+
+  .nav-pill-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .user-controls {
+    margin-left: auto;
+    gap: 8px;
+  }
+
+  .header-user-info {
+    display: none !important;
+  }
+
+  .telematics-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+
+  .telematics-status-pill {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .telematics-ticker-track {
+    width: 100%;
+    min-width: 0;
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid #1e293b;
+    border-bottom: 1px solid #1e293b;
+    padding: 8px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .telematics-ticker-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .telematics-actions-group {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-start;
+  }
+
+  .simulator-label {
+    width: 100%;
+    margin-bottom: 2px;
+  }
+
+  .sim-btn {
+    flex: 1 1 calc(50% - 6px);
+    text-align: center;
+    padding: 7px 10px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .map-hero-card {
+    height: 420px;
+  }
+
+  .map-floating-bar {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: stretch;
+    pointer-events: none;
+  }
+
+  .map-search-pill {
+    width: 100%;
+    order: 1;
+    pointer-events: auto;
+    padding: 6px 12px;
+  }
+
+  .map-sort-pill {
+    flex: 1 1 calc(50% - 4px);
+    justify-content: center;
+    pointer-events: auto;
+    order: 2;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .gmaps-style-switcher {
+    flex: 1 1 calc(50% - 4px);
+    justify-content: center;
+    pointer-events: auto;
+    order: 3;
+    padding: 2px;
+  }
+
+  .map-floating-bar > .btn-primary {
+    flex: 1 1 100%;
+    justify-content: center;
+    pointer-events: auto;
+    order: 4;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .map-action-controls {
+    right: 10px;
+    bottom: 10px;
+  }
+}
+
 .dashboard-lower-grid {
   display: grid;
   grid-template-columns: 1.05fr 1fr 1.15fr;
@@ -966,6 +1123,93 @@
   justify-content: space-between;
   cursor: pointer;
   transition: all var(--transition-fast);
+}
+
+/* Vehicle image — full-width, seamless blend like dashboard truck */
+.vehicle-img-stage {
+  position: relative;
+  margin: 10px -20px 14px;
+  overflow: hidden;
+  background: var(--bg-card);
+  border-top: none;
+  border-bottom: none;
+  height: 160px;
+}
+
+.vehicle-img-stage::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--bg-card));
+  pointer-events: none;
+  z-index: 2;
+}
+
+.vehicle-img-stage .vehicle-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  display: block;
+  transition: transform 0.35s ease;
+  z-index: 1;
+}
+
+.vehicle-item-card:hover .vehicle-img,
+.vehicle-card:hover .vehicle-img {
+  transform: scale(1.06);
+}
+
+/* Detail page hero image */
+.vehicle-detail-img-stage {
+  position: relative;
+  margin: 16px -20px 0;
+  overflow: hidden;
+  background: var(--bg-card);
+  border-top: none;
+  border-bottom: none;
+  height: 200px;
+}
+
+.vehicle-detail-img-stage::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to bottom, transparent, var(--bg-card));
+  pointer-events: none;
+  z-index: 2;
+}
+
+.vehicle-detail-img-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  display: block;
+  z-index: 1;
+}
+
+/* Dark mode — slight dimming so white truck doesn't blast on dark card */
+[data-theme="dark"] .vehicle-img-stage {
+  background: #1c2433;
+}
+[data-theme="dark"] .vehicle-detail-img-stage {
+  background: #1c2433;
+}
+[data-theme="dark"] .vehicle-img-stage .vehicle-img,
+[data-theme="dark"] .vehicle-detail-img-stage img {
+  opacity: 0.88;
+  filter: brightness(0.9);
 }
 
 .vehicle-item-card:hover,
@@ -1621,6 +1865,39 @@
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 768px) {
+  .dashboard-top-command-bar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .dashboard-top-command-bar > div:last-child,
+  .dashboard-command-actions {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  .dashboard-command-actions button,
+  .dashboard-top-command-bar > div:last-child button {
+    flex: 1 1 calc(50% - 4px);
+    justify-content: center;
+    font-size: 11px !important;
+    padding: 7px 10px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .dashboard-command-actions button,
+  .dashboard-top-command-bar > div:last-child button {
+    flex: 1 1 100%;
+  }
 }
 
 .dashboard-command-title h2 {
@@ -2447,6 +2724,524 @@
 .seal-circle small {
   font-size: 7px;
   letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   FLEETMIND AI — COMPREHENSIVE RESPONSIVE DESIGN SYSTEM (MOBILE & TABLET)
+   ========================================================================== */
+
+/* 1. Global Page Layout & Card Surfaces */
+@media (max-width: 1024px) {
+  .app-container {
+    padding: 18px 20px 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 12px 14px 28px;
+  }
+
+  .page-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .page-header-bar > div:last-child {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .page-header-bar .btn-primary,
+  .page-header-bar .btn-secondary {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .page-title-box h1 {
+    font-size: 20px;
+  }
+
+  .page-title-box p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 8px 10px 24px;
+  }
+
+  .saas-card {
+    padding: 16px 14px;
+    border-radius: 16px;
+  }
+
+  .page-title-box h1 {
+    font-size: 18px;
+  }
+}
+
+/* 2. Tooltips & Small Screens Reset */
+@media (hover: none), (max-width: 768px) {
+  .nav-pill-btn .tooltip {
+    display: none !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .brand-name {
+    font-size: 16px;
+  }
+  .brand-logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .icon-btn-circle {
+    width: 36px;
+    height: 36px;
+  }
+  .user-avatar-circle {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* 3. Dashboard Metrics & Vehicles Spotlight */
+@media (max-width: 480px) {
+  .metric-dual-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .volume-stats-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .stat-big-num {
+    font-size: 24px;
+  }
+
+  .vehicle-substats-row {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .substat-num {
+    font-size: 15px;
+  }
+
+  .substat-txt {
+    font-size: 10px;
+  }
+
+  .attention-vehicle-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .attention-vehicle-card > div:last-child {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+/* 4. Responsive KPI & Grid Utilities */
+.responsive-kpi-5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+@media (max-width: 1100px) {
+  .responsive-kpi-5,
+  div[style*="gridTemplateColumns: repeat(5, 1fr)"],
+  div[style*="grid-template-columns: repeat(5, 1fr)"] {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .responsive-kpi-5,
+  div[style*="gridTemplateColumns: repeat(5, 1fr)"],
+  div[style*="grid-template-columns: repeat(5, 1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-kpi-5,
+  div[style*="gridTemplateColumns: repeat(5, 1fr)"],
+  div[style*="grid-template-columns: repeat(5, 1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+}
+
+.responsive-kpi-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 960px) {
+  .responsive-kpi-4,
+  div[style*="gridTemplateColumns: repeat(4, 1fr)"],
+  div[style*="grid-template-columns: repeat(4, 1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-kpi-4,
+  div[style*="gridTemplateColumns: repeat(4, 1fr)"],
+  div[style*="grid-template-columns: repeat(4, 1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+}
+
+.responsive-kpi-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 12px 0 20px;
+}
+
+@media (max-width: 768px) {
+  .responsive-kpi-3,
+  div[style*="gridTemplateColumns: repeat(3, 1fr)"],
+  div[style*="grid-template-columns: repeat(3, 1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+}
+
+.responsive-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 860px) {
+  .responsive-grid-2,
+  div[style*="gridTemplateColumns: 1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+.responsive-split-grid {
+  display: grid;
+  gap: 20px;
+}
+
+@media (max-width: 960px) {
+  .responsive-split-grid,
+  div[style*="gridTemplateColumns: 1.2fr 1fr"],
+  div[style*="gridTemplateColumns: 1fr 1.3fr"],
+  div[style*="gridTemplateColumns: 2fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+.responsive-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 540px) {
+  .responsive-form-row {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+}
+
+.responsive-sim-inputs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  align-items: flex-start;
+}
+
+@media (max-width: 1024px) {
+  .responsive-sim-inputs {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .responsive-sim-inputs {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+}
+
+.responsive-modal-kpi-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 14px 0;
+}
+
+@media (max-width: 600px) {
+  .responsive-modal-kpi-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .responsive-modal-kpi-4 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 5. Tables & Horizontal Scrolling */
+.saas-table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+@media (max-width: 768px) {
+  .toolbar-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .toolbar-bar > div {
+    width: 100%;
+  }
+
+  .search-input-box {
+    width: 100% !important;
+  }
+
+  .filter-group {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .filter-group select,
+  .filter-group button {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 120px;
+  }
+
+  .table-sort-toolbar {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* 6. Route Optimizer & Google Maps View */
+@media (max-width: 640px) {
+  .gmaps-nav-banner {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    width: calc(100% - 16px);
+    max-width: calc(100% - 16px);
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .gmaps-style-switcher {
+    top: 72px;
+    right: 8px;
+  }
+
+  .gmaps-traffic-indicator {
+    bottom: 8px;
+    left: 8px;
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+}
+
+/* 7. AI Assistant Copilot */
+@media (max-width: 960px) {
+  .chat-container-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 16px;
+  }
+
+  .chat-sidebar-card {
+    padding: 18px 16px;
+  }
+
+  .chat-suggestions-group {
+    max-height: 140px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .ai-categories-bar {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+
+  .ai-categories-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ai-categories-bar button {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .chat-main-card {
+    height: 65vh;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-messages-area {
+    flex: 1;
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .chat-bubble {
+    max-width: 92%;
+    padding: 12px 14px;
+    font-size: 13.5px;
+  }
+
+  .chat-input-bar {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+
+  .chat-input-bar input {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+}
+
+/* 8. Horizontal Tab Rows */
+.analytics-tabs-row,
+.trips-subnav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  flex-wrap: nowrap !important;
+}
+
+.analytics-tabs-row::-webkit-scrollbar,
+.trips-subnav-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.analytics-tab-btn,
+.trips-subnav-tabs button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* 9. Modals & Dialogs */
+@media (max-width: 640px) {
+  .modal-content-box {
+    width: 95%;
+    max-width: 95%;
+    padding: 20px 16px;
+    border-radius: 18px;
+    max-height: 92vh;
+  }
+
+  .report-modal-dialog {
+    max-width: 100%;
+    max-height: 96vh;
+    border-radius: 16px;
+  }
+
+  .report-document-body {
+    padding: 18px 14px;
+  }
+
+  .report-doc-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .report-grade-banner {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .report-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .esg-audit-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .report-signoff-block {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .signoff-box {
+    width: 100%;
+    max-width: 240px;
+  }
+}
+
+@media (max-width: 440px) {
+  .report-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 10. Touch & Form Accessibility */
+@media (max-width: 768px) {
+  button, 
+  .select-pill, 
+  .sort-dropdown-select, 
+  input[type="text"], 
+  input[type="number"], 
+  select {
+    touch-action: manipulation;
+  }
+
+  .vehicles-card-grid,
+  .vehicles-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  }
 }
 
 /* Print CSS */
