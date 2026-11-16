@@ -119,7 +119,7 @@ export default function Dashboard() {
           <p>Continuous sensor streaming across Pakistan freight corridors with automated ML anomaly intercept.</p>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+        <div className="dashboard-command-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
           <button 
             className="btn-secondary"
             onClick={() => navigate('/risk-radar')}
@@ -426,10 +426,11 @@ export default function Dashboard() {
           </button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '14px', marginTop: '14px' }}>
+        <div className="attention-vehicles-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '14px', marginTop: '14px' }}>
           {data.vehicles_requiring_attention?.map(v => (
             <div 
               key={v.vehicle_id}
+              className="attention-vehicle-card"
               onClick={() => navigate(`/vehicles/${v.vehicle_id}`)}
               style={{
                 background: 'var(--bg-card)',

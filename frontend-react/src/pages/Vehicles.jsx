@@ -141,7 +141,7 @@ export default function Vehicles() {
       )}
 
       {/* KPI Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '20px' }}>
+      <div className="responsive-kpi-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '20px' }}>
         <div className="saas-card mini-metric-card">
           <span className="mini-metric-title">Total Fleet</span>
           <span className="mini-metric-val">{total}</span>
@@ -300,23 +300,16 @@ export default function Vehicles() {
                     </span>
                   </div>
 
-                  {/* 3D Vehicle Render Image */}
-                  <div style={{ textAlign: 'center', padding: '10px 0', minHeight: '105px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {/* Premium Vehicle Image Stage */}
+                  <div className="vehicle-img-stage">
                     <img 
                       src={imgPath} 
                       alt={`${v.make} ${v.model}`}
+                      className="vehicle-img"
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.src = '/assets/images/delivery_truck.jpg';
                       }}
-                      style={{ 
-                        maxHeight: '105px', 
-                        height: '105px', 
-                        width: '100%', 
-                        objectFit: 'contain', 
-                        filter: 'drop-shadow(0 6px 14px rgba(0,0,0,0.14))',
-                        transition: 'transform 0.2s ease'
-                      }} 
                     />
                   </div>
 
@@ -567,7 +560,7 @@ export default function Vehicles() {
             )}
 
             <form onSubmit={handleCreateVehicle} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              <div className="responsive-form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '4px' }}>
                     Registration No. *
@@ -611,7 +604,7 @@ export default function Vehicles() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              <div className="responsive-form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '4px' }}>
                     Make *
@@ -656,7 +649,7 @@ export default function Vehicles() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              <div className="responsive-form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '4px' }}>
                     Vehicle Type
@@ -704,7 +697,7 @@ export default function Vehicles() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              <div className="responsive-form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '4px' }}>
                     Manufacturing Year

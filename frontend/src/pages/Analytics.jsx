@@ -231,7 +231,7 @@ export default function Analytics() {
               <div className="card-title-text">📦 Delivery Performance & Delay Analysis</div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', margin: '12px 0 20px' }}>
+            <div className="responsive-kpi-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', margin: '12px 0 20px' }}>
               <div className="vehicle-substat-box">
                 <div className="substat-num" style={{ color: 'var(--primary)' }}>{deliv.on_time_pct}%</div>
                 <div className="substat-txt">On-Time Rate</div>
@@ -246,7 +246,7 @@ export default function Analytics() {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+            <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
               <div>
                 <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '8px' }}>
                   Delay Rate by Driver (%)

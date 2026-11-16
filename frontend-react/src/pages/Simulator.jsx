@@ -188,7 +188,7 @@ export default function Simulator() {
           <Sliders size={16} color="var(--primary)" /> Simulation Input Parameters
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', alignItems: 'flex-start' }}>
+        <div className="responsive-sim-inputs" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', alignItems: 'flex-start' }}>
           {/* Target Vehicle */}
           <div>
             <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', marginBottom: '6px' }}>
@@ -283,7 +283,7 @@ export default function Simulator() {
       </div>
 
       {/* Side-by-Side Before vs After Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
+      <div className="responsive-kpi-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
         {/* Metric 1: Delivery Delay Rate */}
         <div className="saas-card" style={{ padding: '18px' }}>
           <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-muted)' }}>Predicted Delivery Delay Rate</span>
