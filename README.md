@@ -83,7 +83,7 @@ FleetMind-AI/
 - **Backend**: Python 3.11+, FastAPI, Pydantic, SQLAlchemy, PyJWT.
 - **Database**: SQLite.
 - **Machine Learning**: Scikit-learn, Pandas, NumPy, Joblib (Logistic Regression, Random Forest).
-- **AI / RAG**: Deterministic ML and telemetry explanations with TF-IDF policy retrieval. Ollama configuration is present for a future local-LLM integration but is not currently called by the chat endpoint.
+- **AI / RAG**: Persistent Chroma policy retrieval with TF-IDF fallback, plus deterministic ML and telemetry explanations. Ollama configuration is present for a future local-LLM integration but is not currently called by the chat endpoint.
 
 ---
 
@@ -129,6 +129,7 @@ DATABASE_URL=sqlite:///./fleetmind.db
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=llama3.2
 VECTOR_DB_PATH=./rag/chroma_db
+RAG_USE_CHROMA=true
 JWT_SECRET_KEY=your-secret-key
 WEIGHT_MAINTENANCE=0.40
 WEIGHT_FUEL=0.30
@@ -176,7 +177,13 @@ To prepare Ollama for a future local-LLM integration:
    ollama run llama3.2
    ```
 
-## 11. Testing
+## 11. RAG Storage
+Policy chunks are persisted in the local Chroma database at `VECTOR_DB_PATH`.
+Set `RAG_USE_CHROMA=false` to use the original in-memory TF-IDF index instead.
+If Chroma cannot initialize or a query fails, the application logs a warning and
+automatically falls back to TF-IDF retrieval.
+
+## 12. Testing
 Run the complete automated test suite:
 ```powershell
 python -m pytest tests
