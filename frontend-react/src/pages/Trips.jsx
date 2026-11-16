@@ -89,7 +89,7 @@ export default function Trips() {
       </div>
 
       {/* Feature Sub-Navigation Tabs */}
-      <div style={{ display: 'flex', gap: '8px', marginBottom: '22px', borderBottom: '1px solid var(--border-light)', paddingBottom: '12px' }}>
+      <div className="trips-subnav-tabs" style={{ display: 'flex', gap: '8px', marginBottom: '22px', borderBottom: '1px solid var(--border-light)', paddingBottom: '12px' }}>
         <button
           onClick={() => setActiveTab('optimizer')}
           style={{
