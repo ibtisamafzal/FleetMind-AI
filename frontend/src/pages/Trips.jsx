@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { UploadCloud, Zap, X, Compass, Route, ListFilter } from 'lucide-react';
+import { UploadCloud, Zap, X, Compass, ListFilter } from 'lucide-react';
 import { api } from '../api';
 import RouteOptimizer from '../components/RouteOptimizer';
 
@@ -38,7 +38,7 @@ export default function Trips() {
     setIsPredicting(false);
   };
 
-  const handleTripDispatched = (dispatchedTrip) => {
+  const handleTripDispatched = () => {
     api.getTrips().then(setTrips);
   };
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../api';
-import { ShieldCheck, Truck, Lock, Mail, ArrowRight, UserCheck, LogOut, KeyRound, RefreshCw } from 'lucide-react';
+import { ShieldCheck, Truck, Lock, Mail, ArrowRight, UserCheck, LogOut, KeyRound } from 'lucide-react';
 
 export default function Login() {
   const navigate = useNavigate();

@@ -16,21 +16,21 @@ Commercial fleet operators face severe margin erosion from:
 FleetMind AI solves this by separating **ML prediction → deterministic telemetry calculation → GenAI policy explanation**.
 
 ## 3. Core Features
-- **ArgoLogics SaaS Interface**: Consistent emerald/slate aesthetic across all 9 pages featuring a floating pill navigation, dark night-mode maps, and 3D vehicle spotlight cards.
+- **ArgoLogics SaaS Interface**: Consistent emerald/slate aesthetic across all 12 pages featuring a floating pill navigation, dark night-mode maps, and 3D vehicle spotlight cards.
 - **Dark Interactive Telematics Map**: High-contrast Leaflet map displaying active transit corridors, vehicle markers, and location search.
 - **ML Model #1 — Delivery Delay Prediction**: Logistic Regression & Random Forest classifier predicting transit delay probability (`POST /api/ml/predict-delay`).
 - **ML Model #2 — Vehicle Operational Risk Scoring**: Multi-component risk model synthesizing Maintenance Risk (40%), Fuel Efficiency Risk (30%), and Delay Risk (30%).
 - **RAG Knowledge Base & Ollama Integration**: TF-IDF & vector retrieval across 5 operational policy guidelines with zero hallucination enforcement (`POST /api/ai/chat`).
 - **Vehicle Detail Telematics**: Real-time breakdown of vehicle risk, 30-day risk trend charts, historical logs, and 1-click "Ask FleetMind" trigger.
-- **Bulk CSV Data Upload**: Direct ingestion of bulk trip records into PostgreSQL / SQLite.
+- **Bulk CSV Data Upload**: Direct ingestion of bulk trip records into the local SQLite database.
 - **Dynamic Risk Weight Sliders**: Customizable operational weights that dynamically re-rank fleet attention priorities.
 
 ## 4. Architecture
 ```
-e:/FleetMind AI/
+FleetMind-AI/
 ├── backend/
 │   ├── config.py              # Pydantic & environment settings
-│   ├── database.py            # SQLAlchemy engine (SQLite / PostgreSQL)
+│   ├── database.py            # SQLAlchemy engine (SQLite)
 │   ├── models/                # Vehicle, Driver, Trip, Fuel, Maintenance, User
 │   ├── schemas/               # Request/Response validation schemas
 │   ├── routes/                # Auth, Vehicles, Drivers, Trips, ML, Analytics, AI, Settings
@@ -60,10 +60,13 @@ e:/FleetMind AI/
 │   │   ├── components/
 │   │   │   ├── TopHeader.jsx  # Floating centered pill navigation & user badge
 │   │   │   └── LeafletDarkMap.jsx # Night-mode telematics map (Lahore & M-2)
-│   │   └── pages/             # All 9 React pages:
+│   │   └── pages/             # All 12 React pages:
 │   │       ├── Dashboard.jsx
 │   │       ├── Vehicles.jsx
 │   │       ├── VehicleDetail.jsx
+│   │       ├── RiskRadar.jsx
+│   │       ├── Simulator.jsx
+│   │       ├── ActionCenter.jsx
 │   │       ├── Drivers.jsx
 │   │       ├── Trips.jsx
 │   │       ├── Analytics.jsx
@@ -72,17 +75,15 @@ e:/FleetMind AI/
 │   │       └── Login.jsx
 │   └── public/assets/images/  # Delivery truck, van & driver avatars
 ├── tests/                     # Pytest suite for ML, Vehicles API, and AI Assistant
-├── run_app.py                 # Single-command launcher
-├── Dockerfile                 # Container image
-└── docker-compose.yml         # Postgres + App container orchestration
+└── run_app.py                 # Single-command launcher
 ```
 
 ## 5. Technology Stack
 - **Frontend**: **React 19, JavaScript (ES6+ / JSX), Vite**, React Router, Lucide React, Chart.js, React-Chartjs-2, Leaflet.js, ArgoLogics Design System Tokens.
 - **Backend**: Python 3.11+, FastAPI, Pydantic, SQLAlchemy, PyJWT.
-- **Database**: SQLite (Local fallback) / PostgreSQL (Production).
+- **Database**: SQLite.
 - **Machine Learning**: Scikit-learn, Pandas, NumPy, Joblib (Logistic Regression, Random Forest).
-- **GenAI / RAG**: Ollama (llama3.2 / mistral), Vector Retrieval, Grounded Knowledge Base.
+- **AI / RAG**: Deterministic ML and telemetry explanations with TF-IDF policy retrieval. Ollama configuration is present for a future local-LLM integration but is not currently called by the chat endpoint.
 
 ---
 
@@ -90,7 +91,7 @@ e:/FleetMind AI/
 
 ### Step 1: Clone or Navigate to the Workspace
 ```powershell
-cd "e:\FleetMind AI"
+cd "C:\path\to\FleetMind-AI"
 ```
 
 ### Step 2: Install Python Dependencies
@@ -100,8 +101,12 @@ pip install -r requirements.txt
 
 ### Step 3: Run the Application
 
-#### Option A: Unified Full-Stack Production Server (FastAPI + React SPA)
+#### Option A: Unified Full-Stack Local Server (FastAPI + React SPA)
 ```powershell
+cd frontend
+npm install
+npm run build
+cd ..
 python run_app.py
 ```
 - **React Web App**: [http://127.0.0.1:8000](http://127.0.0.1:8000)
@@ -145,28 +150,37 @@ python ml/train_risk_model.py
 python ml/evaluate.py
 ```
 
-## 10. Ollama Local LLM Setup
-1. Download Ollama from [ollama.com](https://ollama.com).
-2. Pull your desired open-source model:
+## 10. Optional Ollama Local LLM Setup
+The project contains Ollama settings and an HTTP helper, but the current
+`/api/ai/chat` request path does not invoke Ollama. Chat responses currently
+come from deterministic ML, database telemetry, and TF-IDF policy retrieval.
+
+To prepare Ollama for a future local-LLM integration:
+
+1. Install Ollama from [ollama.com](https://ollama.com).
+2. Pull a Llama 3.2 model:
    ```bash
    ollama pull llama3.2
    ```
-3. Ensure Ollama is running at `http://localhost:11434`. (FleetMind AI includes an automatic intelligent fallback engine if Ollama is not launched).
+3. Start Ollama if it is not already running:
+   ```bash
+   ollama serve
+   ```
+4. Ensure `.env` contains:
+   ```ini
+   OLLAMA_BASE_URL=http://localhost:11434
+   OLLAMA_MODEL=llama3.2
+   ```
+5. Test the model directly:
+   ```bash
+   ollama run llama3.2
+   ```
 
 ## 11. Testing
 Run the complete automated test suite:
 ```powershell
 python -m pytest tests
 ```
-
-## 12. Docker Deployment
-Run FleetMind AI alongside PostgreSQL using Docker Compose:
-```bash
-docker-compose up --build -d
-```
-The application will be accessible at `http://localhost:8000`.
-
----
 
 ## 13. Vehicle & Driver Management APIs
 

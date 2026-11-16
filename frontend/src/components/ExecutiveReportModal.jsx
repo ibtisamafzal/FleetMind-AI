@@ -6,9 +6,6 @@ import {
   ShieldCheck, 
   AlertTriangle, 
   Leaf, 
-  TrendingUp, 
-  CheckCircle2, 
-  Clock, 
   FileText 
 } from 'lucide-react';
 

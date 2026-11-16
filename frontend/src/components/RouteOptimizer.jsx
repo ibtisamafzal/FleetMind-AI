@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
 import { 
-  Navigation, Zap, Clock, ShieldCheck, AlertTriangle, 
-  Fuel, CheckCircle2, ChevronRight, Compass, ArrowRight,
-  TrendingUp, RefreshCw, Send, Layers, Sun, Moon, Globe,
+  Zap, CheckCircle2, Compass,
+  RefreshCw, Send, Layers, Sun, Moon, Globe,
   MapPin, CornerUpRight, CornerDownRight, ArrowUpRight,
-  ArrowUp, Check, ChevronDown, ListFilter
+  ArrowUp, ChevronDown, ListFilter
 } from 'lucide-react';
 import { api } from '../api';
 
@@ -14,11 +13,11 @@ export default function RouteOptimizer({ onTripDispatched }) {
   const [origin, setOrigin] = useState("Sundar Industrial Estate, Lahore");
   const [destination, setDestination] = useState("I-9 Industrial Area, Islamabad");
   const [departureHour, setDepartureHour] = useState(10);
-  const [dayOfWeek, setDayOfWeek] = useState(2);
+  const [dayOfWeek] = useState(2);
   const [weather, setWeather] = useState("Clear");
   const [preference, setPreference] = useState("balanced"); // balanced, smallest, min_traffic
   const [vehicleId, setVehicleId] = useState("VH-027");
-  const [driverId, setDriverId] = useState("DRV-001");
+  const [driverId] = useState("DRV-001");
 
   // Google Maps Style Tile Theme: 'dark' (Google Dark Mode), 'light' (Google Maps Street), 'satellite' (Satellite)
   const getInitialStyle = () => {
@@ -45,6 +44,8 @@ export default function RouteOptimizer({ onTripDispatched }) {
   const chipsLayerGroupRef = useRef(null);
 
   // Load locations on mount
+  // The initial optimization intentionally runs only once with the default route.
+  // oxlint-disable react-hooks/exhaustive-deps
   useEffect(() => {
     api.getRouteLocations().then(locs => {
       if (locs && locs.length > 0) {
@@ -53,6 +54,7 @@ export default function RouteOptimizer({ onTripDispatched }) {
     });
     handleOptimize("Sundar Industrial Estate, Lahore", "I-9 Industrial Area, Islamabad", 10, "balanced");
   }, []);
+  // oxlint-enable react-hooks/exhaustive-deps
 
   // Initialize Leaflet Map
   useEffect(() => {
@@ -84,7 +86,7 @@ export default function RouteOptimizer({ onTripDispatched }) {
   }, []);
 
   // Switch Tile Layer smoothly between Google Dark, Google Light (Street), and Google Satellite (NO API KEY REQUIRED)
-  const updateTileLayer = (style, map) => {
+  function updateTileLayer(style, map) {
     if (!map) return;
     if (tileLayerRef.current) {
       map.removeLayer(tileLayerRef.current);
@@ -115,7 +117,7 @@ export default function RouteOptimizer({ onTripDispatched }) {
       className: tileClassName,
       attribution: '&copy; Google Maps'
     }).addTo(map);
-  };
+  }
 
   const handleMapStyleChange = (style) => {
     setMapStyle(style);
@@ -344,7 +346,7 @@ export default function RouteOptimizer({ onTripDispatched }) {
     }
   }, [optimizationData, selectedRouteId, mapStyle, showTrafficColoring]);
 
-  const handleOptimize = async (customOrig, customDest, customHour, customPref) => {
+  async function handleOptimize(customOrig, customDest, customHour, customPref) {
     setLoading(true);
     setDispatchStatus(null);
     try {
@@ -357,7 +359,7 @@ export default function RouteOptimizer({ onTripDispatched }) {
         vehicle_id: vehicleId,
         driver_id: driverId,
         preference: customPref || preference
-      };
+      }
 
       const res = await api.optimizeRoute(reqPayload);
       setOptimizationData(res);

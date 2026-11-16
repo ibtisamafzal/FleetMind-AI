@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   CheckSquare, 
-  Clock, 
   AlertTriangle, 
-  ShieldAlert, 
   Plus, 
   RefreshCw, 
-  Filter, 
   Search, 
   CheckCircle2, 
-  ArrowUpRight, 
   User, 
-  Calendar, 
   Truck, 
-  X,
-  MessageSquare
+  X
 } from 'lucide-react';
 import { api } from '../api';
 
@@ -41,7 +35,7 @@ export default function ActionCenter() {
 
   const navigate = useNavigate();
 
-  const loadActions = () => {
+  const loadActions = useCallback(() => {
     setLoading(true);
     const params = {};
     if (statusFilter !== 'All') params.status = statusFilter;
@@ -51,11 +45,13 @@ export default function ActionCenter() {
     api.getActionItems(params)
       .then(setData)
       .finally(() => setLoading(false));
-  };
+  }, [categoryFilter, priorityFilter, statusFilter]);
 
   useEffect(() => {
+    // Data loading synchronizes this screen with filter changes.
+    // oxlint-disable-next-line react/set-state-in-effect
     loadActions();
-  }, [statusFilter, priorityFilter, categoryFilter]);
+  }, [loadActions]);
 
   const handleUpdateStatus = async (actionId, newStatus) => {
     try {

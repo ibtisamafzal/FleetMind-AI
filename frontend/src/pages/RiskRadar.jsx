@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   ShieldAlert, 
-  ShieldCheck, 
   AlertTriangle, 
   Search, 
-  Filter, 
-  Sliders, 
-  ArrowRight, 
   TrendingUp, 
   Cpu, 
   Wrench, 
@@ -15,9 +11,7 @@ import {
   Clock, 
   CheckCircle2, 
   X, 
-  ExternalLink,
   ChevronRight,
-  Info
 } from 'lucide-react';
 import { Line } from 'react-chartjs-2';
 import {
@@ -58,7 +52,7 @@ export default function RiskRadar() {
 
   const navigate = useNavigate();
 
-  const loadData = () => {
+  const loadData = useCallback(() => {
     setLoading(true);
     const params = {};
     if (riskFilter !== 'All') params.risk_level = riskFilter;
@@ -71,11 +65,13 @@ export default function RiskRadar() {
         setData(res);
       })
       .finally(() => setLoading(false));
-  };
+  }, [riskFilter, search, typeFilter, urgentOnly]);
 
   useEffect(() => {
+    // Data loading synchronizes this screen with filter changes.
+    // oxlint-disable-next-line react/set-state-in-effect
     loadData();
-  }, [riskFilter, typeFilter, urgentOnly, search]);
+  }, [loadData]);
 
   const handleOpenDetail = async (vId) => {
     setSelectedVehicleId(vId);

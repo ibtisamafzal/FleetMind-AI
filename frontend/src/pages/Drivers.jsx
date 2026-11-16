@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, Star, MessageSquare, Plus, X, Users, ArrowUp, ArrowDown, ArrowUpDown, SlidersHorizontal } from 'lucide-react';
 import { api } from '../api';
@@ -27,13 +27,13 @@ export default function Drivers() {
 
   const navigate = useNavigate();
 
-  const loadDrivers = () => {
+  const loadDrivers = useCallback(() => {
     api.getDrivers(search ? { search } : {}).then(setDrivers);
-  };
+  }, [search]);
 
   useEffect(() => {
     loadDrivers();
-  }, [search]);
+  }, [loadDrivers]);
 
   // Handle header or dropdown sort change
   const handleSort = (field) => {

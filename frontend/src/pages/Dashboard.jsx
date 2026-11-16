@@ -12,8 +12,6 @@ import {
   AlertTriangle, 
   ArrowRight,
   Award,
-  Sparkles,
-  FileText,
   ShieldAlert,
   Cpu,
   CheckSquare

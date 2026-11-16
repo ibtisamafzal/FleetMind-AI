@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { 
   Cpu, 
   Sliders, 
   Play, 
   ArrowRight, 
-  RotateCcw, 
-  CheckCircle2, 
-  AlertTriangle, 
   Info, 
-  Truck, 
-  TrendingDown, 
-  TrendingUp, 
-  Fuel, 
-  Calendar,
-  CloudFog,
-  CloudRain,
-  Sun
 } from 'lucide-react';
 import { api } from '../api';
 
 export default function Simulator() {
   const location = useLocation();
-  const navigate = useNavigate();
 
   const [scenarios, setScenarios] = useState([]);
   const [vehicles, setVehicles] = useState([]);
@@ -77,9 +65,13 @@ export default function Simulator() {
   };
 
   // Run initial simulation on load
+  // oxlint-disable react-hooks/exhaustive-deps
   useEffect(() => {
+    // The initial simulation intentionally reruns only when the scenario changes.
+    // oxlint-disable-next-line react/set-state-in-effect
     handleRunSimulation();
   }, [scenarioType]);
+  // oxlint-enable react-hooks/exhaustive-deps
 
   const applyPreset = (sc) => {
     setScenarioType(sc.id);

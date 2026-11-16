@@ -2,24 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import { 
-  FileText, 
-  Printer, 
   Award, 
   Sparkles, 
   Cpu, 
   Leaf, 
   Sliders, 
-  Gauge, 
   ShieldCheck, 
-  Layers, 
   BarChart3, 
-  TrendingUp, 
-  TrendingDown,
-  Info,
-  CheckCircle2,
   AlertTriangle,
   Wrench,
-  Fuel,
   Users
 } from 'lucide-react';
 import { api } from '../api';

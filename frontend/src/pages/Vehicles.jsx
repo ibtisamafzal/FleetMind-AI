@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, LayoutGrid, List, ArrowRight, Truck, X, Plus, ArrowUp, ArrowDown, ArrowUpDown, SlidersHorizontal } from 'lucide-react';
 import { api } from '../api';
@@ -34,7 +34,7 @@ export default function Vehicles() {
 
   const navigate = useNavigate();
 
-  const loadVehicles = () => {
+  const loadVehicles = useCallback(() => {
     const params = {};
     if (search) params.search = search;
     if (status !== 'All') params.status = status;
@@ -42,11 +42,11 @@ export default function Vehicles() {
     if (fuel !== 'All') params.fuel_type = fuel;
 
     api.getVehicles(params).then(setVehicles);
-  };
+  }, [fuel, risk, search, status]);
 
   useEffect(() => {
     loadVehicles();
-  }, [search, status, risk, fuel]);
+  }, [loadVehicles]);
 
   const handleSort = (field) => {
     if (sortField === field) {

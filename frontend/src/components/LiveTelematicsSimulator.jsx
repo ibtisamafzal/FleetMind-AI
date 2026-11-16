@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
-  Radio, 
-  AlertTriangle, 
-  Activity, 
-  Zap, 
   Gauge, 
   Thermometer, 
   Droplet, 
-  Compass, 
   Sparkles, 
   X, 
-  CheckCircle2, 
-  Volume2 
+  CheckCircle2
 } from 'lucide-react';
 import { api } from '../api';
 

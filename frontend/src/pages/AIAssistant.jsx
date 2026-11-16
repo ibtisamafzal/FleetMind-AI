@@ -17,7 +17,6 @@ import {
   Compass, 
   CloudFog, 
   Fuel, 
-  BarChart3,
   Bot
 } from 'lucide-react';
 import { api } from '../api';
@@ -59,14 +58,10 @@ export default function AIAssistant() {
     // Load vehicle list for context selector
     api.getVehicles().then(data => {
       if (Array.isArray(data)) setVehiclesList(data.slice(0, 15));
-    }).catch(() => {});
+    }).catch(() => {
+      setVehiclesList([]);
+    });
   }, []);
-
-  useEffect(() => {
-    if (location.state?.prefilledPrompt) {
-      sendMessage(location.state.prefilledPrompt);
-    }
-  }, [location.state]);
 
   const sendMessage = async (textToSend) => {
     const text = textToSend || inputValue.trim();
@@ -89,7 +84,7 @@ export default function AIAssistant() {
         recommendations: res.recommended_actions,
         actionCards: res.action_cards
       }]);
-    } catch (e) {
+    } catch {
       setIsTyping(false);
       setMessages([...newMessages, {
         role: 'assistant',
@@ -98,6 +93,14 @@ export default function AIAssistant() {
       }]);
     }
   };
+
+  useEffect(() => {
+    if (location.state?.prefilledPrompt) {
+      sendMessage(location.state.prefilledPrompt);
+    }
+    // This effect intentionally runs only when navigation supplies a new prompt.
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.state?.prefilledPrompt]);
 
   const handleCopy = (text, idx) => {
     navigator.clipboard.writeText(text);
