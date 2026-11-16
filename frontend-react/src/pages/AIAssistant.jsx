@@ -85,6 +85,7 @@ export default function AIAssistant() {
         text: res.response,
         mlPrediction: res.ml_prediction,
         deterministicStats: res.deterministic_stats,
+        responseSource: res.response_source,
         sources: res.sources,
         recommendations: res.recommended_actions,
         actionCards: res.action_cards
@@ -210,11 +211,16 @@ export default function AIAssistant() {
   };
 
   // Helper to render basic markdown nicely without external heavy libraries
-  const renderFormattedContent = (content) => {
+  const renderFormattedContent = (content, isUserMessage = false) => {
     if (!content) return null;
 
+    const textColor = isUserMessage ? '#ffffff' : 'var(--text-main)';
     const lines = content.split('\n');
-    return lines.map((line, idx) => {
+    const isTableSeparator = (line) => /^\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)+\|?$/.test(line.trim());
+    const tableCells = (line) => line.trim().replace(/^\||\|$/g, '').split('|').map(cell => cell.trim());
+    const rendered = [];
+
+    const renderLine = (line, idx) => {
       const trimmed = line.trim();
 
       if (trimmed.startsWith('### ')) {
@@ -222,7 +228,7 @@ export default function AIAssistant() {
           <h4 key={idx} style={{ 
             fontSize: '15px', 
             fontWeight: 800, 
-            color: 'var(--text-main)', 
+            color: textColor,
             margin: '12px 0 6px 0',
             display: 'flex',
             alignItems: 'center',
@@ -246,7 +252,7 @@ export default function AIAssistant() {
             lineHeight: '1.5'
           }}>
             <span style={{ color: 'var(--primary)', fontWeight: 'bold' }}>•</span>
-            <div>{renderBoldAndCode(bulletText)}</div>
+            <div>{renderBoldAndCode(bulletText, textColor)}</div>
           </div>
         );
       }
@@ -265,7 +271,7 @@ export default function AIAssistant() {
             lineHeight: '1.5'
           }}>
             <span style={{ color: 'var(--primary)', fontWeight: 800, minWidth: '18px' }}>{num}</span>
-            <div>{renderBoldAndCode(itemText)}</div>
+            <div>{renderBoldAndCode(itemText, textColor)}</div>
           </div>
         );
       }
@@ -275,19 +281,79 @@ export default function AIAssistant() {
       }
 
       return (
-        <p key={idx} style={{ margin: '4px 0', fontSize: '13px', lineHeight: '1.5', color: 'var(--text-main)' }}>
-          {renderBoldAndCode(line)}
+        <p key={idx} style={{ margin: '4px 0', fontSize: '13px', lineHeight: '1.5', color: textColor }}>
+          {renderBoldAndCode(line, textColor)}
         </p>
       );
-    });
+    };
+
+    for (let idx = 0; idx < lines.length; idx += 1) {
+      if (lines[idx].includes('|') && idx + 1 < lines.length && isTableSeparator(lines[idx + 1])) {
+        const rows = [tableCells(lines[idx])];
+        let rowIndex = idx + 2;
+        while (rowIndex < lines.length && lines[rowIndex].includes('|') && lines[rowIndex].trim()) {
+          rows.push(tableCells(lines[rowIndex]));
+          rowIndex += 1;
+        }
+
+        rendered.push(
+          <div key={`table-${idx}`} style={{ overflowX: 'auto', margin: '12px 0' }}>
+            <table style={{
+              width: '100%',
+              minWidth: '520px',
+              borderCollapse: 'collapse',
+              fontSize: '12px',
+              color: textColor,
+              background: 'var(--bg-card)'
+            }}>
+              <thead>
+                <tr>
+                  {rows[0].map((cell, cellIndex) => (
+                    <th key={cellIndex} style={{
+                      textAlign: 'left',
+                      padding: '9px 10px',
+                      borderBottom: '2px solid var(--primary)',
+                      background: 'var(--bg-card-subtle)',
+                      fontWeight: 800
+                    }}>
+                      {renderBoldAndCode(cell, textColor)}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {rows.slice(1).map((row, rowNumber) => (
+                  <tr key={rowNumber}>
+                    {rows[0].map((_, cellIndex) => (
+                      <td key={cellIndex} style={{
+                        padding: '8px 10px',
+                        borderBottom: '1px solid var(--border-light)',
+                        verticalAlign: 'top'
+                      }}>
+                        {renderBoldAndCode(row[cellIndex] || '', textColor)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+        idx = rowIndex - 1;
+      } else {
+        rendered.push(renderLine(lines[idx], idx));
+      }
+    }
+
+    return rendered;
   };
 
-  const renderBoldAndCode = (text) => {
+  const renderBoldAndCode = (text, textColor = 'var(--text-main)') => {
     // Replaces **bold** and `code`
     const parts = text.split(/(\*\*.*?\*\*|`.*?`)/g);
     return parts.map((part, i) => {
       if (part.startsWith('**') && part.endsWith('**')) {
-        return <strong key={i} style={{ color: 'var(--text-main)' }}>{part.slice(2, -2)}</strong>;
+        return <strong key={i} style={{ color: textColor }}>{part.slice(2, -2)}</strong>;
       }
       if (part.startsWith('`') && part.endsWith('`')) {
         return (
@@ -296,7 +362,7 @@ export default function AIAssistant() {
             padding: '2px 6px', 
             borderRadius: '4px',
             fontSize: '12px',
-            color: 'var(--primary-text)',
+            color: textColor,
             fontFamily: 'JetBrains Mono, monospace'
           }}>
             {part.slice(1, -1)}
@@ -474,7 +540,9 @@ export default function AIAssistant() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <Sparkles size={14} color="var(--primary)" />
                     <strong style={{ color: 'var(--primary-text)', fontSize: '13px' }}>FleetMind AI Copilot</strong>
-                    <span className="pill-badge badge-active" style={{ fontSize: '10px', padding: '2px 8px' }}>Grounded</span>
+                    <span className="pill-badge badge-active" style={{ fontSize: '10px', padding: '2px 8px' }}>
+                      {m.responseSource === 'llama3.2' ? 'Generated by Llama 3.2' : 'SQLite fallback'}
+                    </span>
                   </div>
 
                   {/* Message Action Utilities */}
@@ -530,7 +598,7 @@ export default function AIAssistant() {
 
               {/* Formatted Text Content */}
               <div>
-                {renderFormattedContent(m.text)}
+                {renderFormattedContent(m.text, m.role === 'user')}
               </div>
 
               {/* Interactive Navigation Action Cards */}
@@ -586,7 +654,7 @@ export default function AIAssistant() {
                   borderRadius: '50%',
                   animation: 'pulse 1.2s infinite' 
                 }} />
-                FleetMind AI is retrieving telemetry from SQLite, evaluating ML models, and consulting SOPs...
+                Checking Llama 3.2 first with verified fleet data; fallback activates automatically if needed...
               </div>
             </div>
           )}
