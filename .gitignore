@@ -32,6 +32,7 @@ pnpm-debug.log*
 
 # Local temporary SQLite journal/locks
 *.db-journal
+rag/chroma_db/
 
 # IDEs & System files
 .vscode/

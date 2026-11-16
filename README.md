@@ -83,7 +83,7 @@ FleetMind-AI/
 - **Backend**: Python 3.11+, FastAPI, Pydantic, SQLAlchemy, PyJWT.
 - **Database**: SQLite.
 - **Machine Learning**: Scikit-learn, Pandas, NumPy, Joblib (Logistic Regression, Random Forest).
-- **AI / RAG**: Deterministic ML and telemetry explanations with TF-IDF policy retrieval. Ollama configuration is present for a future local-LLM integration but is not currently called by the chat endpoint.
+- **AI / RAG**: Persistent Chroma policy retrieval with TF-IDF fallback, deterministic ML and telemetry explanations, and optional local Llama 3.2 enrichment through Ollama. The deterministic response remains authoritative; Ollama adds a grounded explanation when available.
 
 ---
 
@@ -126,9 +126,11 @@ npm run dev
 Create a `.env` file from `.env.example`:
 ```ini
 DATABASE_URL=sqlite:///./fleetmind.db
-OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_BASE_URL=http://127.0.0.1:11434
 OLLAMA_MODEL=llama3.2
+OLLAMA_ENABLED=true
 VECTOR_DB_PATH=./rag/chroma_db
+RAG_USE_CHROMA=true
 JWT_SECRET_KEY=your-secret-key
 WEIGHT_MAINTENANCE=0.40
 WEIGHT_FUEL=0.30
@@ -150,33 +152,79 @@ python ml/train_risk_model.py
 python ml/evaluate.py
 ```
 
-## 10. Optional Ollama Local LLM Setup
-The project contains Ollama settings and an HTTP helper, but the current
-`/api/ai/chat` request path does not invoke Ollama. Chat responses currently
-come from deterministic ML, database telemetry, and TF-IDF policy retrieval.
-
-To prepare Ollama for a future local-LLM integration:
+## 10. Ollama / Llama 3.2 Local Setup
+The `/api/ai/chat` endpoint uses the locally installed `llama3.2` model through
+Ollama when `OLLAMA_ENABLED=true`. The application first calculates the verified
+deterministic answer from ML, telemetry, database data, and RAG policy sources.
+Llama 3.2 then produces an additional grounded explanation; it does not replace
+the verified risk scores, recommendations, or citations. If Ollama is disabled,
+unavailable, or times out, the deterministic response is returned unchanged.
 
 1. Install Ollama from [ollama.com](https://ollama.com).
-2. Pull a Llama 3.2 model:
+2. Download the model:
    ```bash
    ollama pull llama3.2
    ```
-3. Start Ollama if it is not already running:
+3. Confirm Ollama is running. On Windows, the Ollama application normally runs
+   the service automatically. If needed, start it manually:
    ```bash
    ollama serve
    ```
 4. Ensure `.env` contains:
    ```ini
-   OLLAMA_BASE_URL=http://localhost:11434
+   OLLAMA_BASE_URL=http://127.0.0.1:11434
    OLLAMA_MODEL=llama3.2
+   OLLAMA_ENABLED=true
    ```
-5. Test the model directly:
+5. Test Ollama directly, without FleetMind:
    ```bash
    ollama run llama3.2
    ```
+   Type a question such as `Explain why preventive maintenance matters`, then
+   press `Ctrl+D` (or enter `/bye`) to exit.
 
-## 11. Testing
+### Test Llama through FleetMind
+
+Start the application:
+```powershell
+python run_app.py
+```
+
+In another PowerShell window, send a vehicle question to the API:
+```powershell
+$body = @{
+  message = "Why is vehicle VH-027 high risk?"
+  vehicle_id = "VH-027"
+} | ConvertTo-Json
+
+$result = Invoke-RestMethod `
+  -Uri "http://127.0.0.1:8000/api/ai/chat" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body $body
+
+$result.response
+```
+
+When Ollama is being used successfully, the response contains:
+```text
+Llama 3.2 Explanation
+```
+The same response should still contain the deterministic risk score, vehicle
+ID, recommendations, and policy citations. The API can also be tested through
+the Swagger UI at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+
+To test the fallback deliberately, set `OLLAMA_ENABLED=false` in `.env`,
+restart FleetMind, and repeat the request. The response should still succeed,
+but without the `Llama 3.2 Explanation` section.
+
+## 11. RAG Storage
+Policy chunks are persisted in the local Chroma database at `VECTOR_DB_PATH`.
+Set `RAG_USE_CHROMA=false` to use the original in-memory TF-IDF index instead.
+If Chroma cannot initialize or a query fails, the application logs a warning and
+automatically falls back to TF-IDF retrieval.
+
+## 12. Testing
 Run the complete automated test suite:
 ```powershell
 python -m pytest tests

@@ -18,9 +18,11 @@ class Settings:
     DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./fleetmind.db")
     
     # Ollama / GenAI configuration
-    OLLAMA_BASE_URL: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+    OLLAMA_BASE_URL: str = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
     OLLAMA_MODEL: str = os.getenv("OLLAMA_MODEL", "llama3.2")
+    OLLAMA_ENABLED: bool = os.getenv("OLLAMA_ENABLED", "true").lower() in ("true", "1")
     VECTOR_DB_PATH: str = os.getenv("VECTOR_DB_PATH", "./rag/chroma_db")
+    RAG_USE_CHROMA: bool = os.getenv("RAG_USE_CHROMA", "true").lower() in ("true", "1")
     
     # JWT Auth
     JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "fleetmind-super-secret-key-production-mvp")
